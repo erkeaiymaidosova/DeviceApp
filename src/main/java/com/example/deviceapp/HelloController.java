@@ -53,7 +53,7 @@ public class HelloController {
         if(tablet.isSelected()){
             Tablet tab= new Tablet();
             tab.setName(name.getText());
-            tab.setType(DeviceType.SMARTPHONE);
+            tab.setType(DeviceType.TABLET);
             tab.setPrice( Double.parseDouble(price.getText()) );
             tab.setWeight( Double.parseDouble( weight.getText()) );
 
@@ -62,7 +62,7 @@ public class HelloController {
         if(laptop.isSelected()){
             Laptop lap= new Laptop();
             lap.setName(name.getText());
-            lap.setType(DeviceType.SMARTPHONE);
+            lap.setType(DeviceType.LAPTOP);
             lap.setPrice( Double.parseDouble(price.getText()) );
             lap.setWeight( Double.parseDouble( weight.getText()) );
 

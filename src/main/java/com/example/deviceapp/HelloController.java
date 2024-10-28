@@ -31,12 +31,58 @@ public class HelloController {
     private TextField weight;
     @FXML
     private ListView<Device> listView;
+    @FXML
+    private Label choice1;
+    @FXML
+    private Label choice2;
+    @FXML
+    private TextField choice11;
+    @FXML
+    private TextField choice22;
 
     ObservableList<Device> devices = FXCollections.observableArrayList();
 
     @FXML
     public void initialize(){
         listView.setItems(devices);
+
+        device.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            updateDeviceFieldsVisibility();
+        });
+
+
+        updateDeviceFieldsVisibility();
+
+    }
+    @FXML
+    private void updateDeviceFieldsVisibility() {
+        choice1.setVisible(false);
+        choice2.setVisible(false);
+        choice11.setVisible(false);
+        choice22.setVisible(false);
+
+        if (laptop.isSelected()) {
+            choice1.setText("RAM Size (GB):");
+            choice2.setText("Processor Type:");
+            choice1.setVisible(true);
+            choice2.setVisible(true);
+            choice11.setVisible(true);
+            choice22.setVisible(true);
+        } else if (smartphone.isSelected()) {
+            choice1.setText("Screen size:");
+            choice2.setText("Resolution:");
+            choice1.setVisible(true);
+            choice11.setVisible(true);
+            choice2.setVisible(true);
+            choice22.setVisible(true);
+        } else if (tablet.isSelected()) {
+            choice1.setText("Battery life:");
+            choice2.setText("Has Stylus:");
+            choice1.setVisible(true);
+            choice11.setVisible(true);
+            choice2.setVisible(true);
+            choice22.setVisible(true);
+        }
     }
 
     @FXML
@@ -47,7 +93,8 @@ public class HelloController {
             smart.setType(DeviceType.SMARTPHONE);
             smart.setPrice( Double.parseDouble(price.getText()) );
             smart.setWeight( Double.parseDouble( weight.getText()) );
-
+            smart.setScreenSize(Integer.parseInt(choice11.getText()));
+            smart.setResolution(Integer.parseInt(choice22.getText()));
             devices.add(smart);
         }
         if(tablet.isSelected()){
@@ -56,7 +103,8 @@ public class HelloController {
             tab.setType(DeviceType.TABLET);
             tab.setPrice( Double.parseDouble(price.getText()) );
             tab.setWeight( Double.parseDouble( weight.getText()) );
-
+            tab.setBatteryLife(Double.parseDouble(choice11.getText()));
+            tab.setHasStylus(Boolean.parseBoolean(choice22.getText()));
             devices.add(tab);
         }
         if(laptop.isSelected()){
@@ -65,7 +113,8 @@ public class HelloController {
             lap.setType(DeviceType.LAPTOP);
             lap.setPrice( Double.parseDouble(price.getText()) );
             lap.setWeight( Double.parseDouble( weight.getText()) );
-
+            lap.setRamSize(Integer.parseInt(choice11.getText()));
+            lap.setProcessorType(String.valueOf(choice22.getText()));
             devices.add(lap);
         }
     }
